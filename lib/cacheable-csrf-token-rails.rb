@@ -9,7 +9,7 @@ module CacheableCSRFTokenRails
 
       private
       def inject_csrf_token
-        if protect_against_forgery? && token = session['_csrf_token']
+        if protect_against_forgery? && token = form_authenticity_token
           if body_with_token = response.body.gsub!(ApplicationController::TOKEN_PLACEHOLDER, token)
             response.body = body_with_token
           end
@@ -22,7 +22,6 @@ module CacheableCSRFTokenRails
 
       def token_tag(token=nil)
         if token != false && protect_against_forgery?
-          token ||= form_authenticity_token
           tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => ApplicationController::TOKEN_PLACEHOLDER)
         else
           ''
