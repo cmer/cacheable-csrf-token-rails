@@ -6,6 +6,6 @@ CacheableCSRFToken allows you to easily cache Ruby on Rails pages or partials co
 
 #### Usage
 
-1. Add `cacheable-csrf-rails` to your Gemfile
+1. Add `cacheable-csrf-token-rails` to your Gemfile
 2. Add this line in ApplicationController:
     `include CacheableCSRFTokenRails`
