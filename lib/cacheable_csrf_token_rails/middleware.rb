@@ -16,10 +16,18 @@ module CacheableCsrfTokenRails
 
     def replace_token_in_body(response, env)
       if response.respond_to?(:body=) && token = extract_token_from_env(env)
-        response.body = response.body.gsub(placeholder, token)
+        if response.body.respond_to?(:each)
+          response.body = response.body.map { |b| replace_token(b, token) }
+        else
+          response.body = replace_token(response.body, token)
+        end
       end
 
       response 
+    end
+
+    def replace_token(body, token)
+      body.gsub(placeholder, token)
     end
 
     def placeholder
