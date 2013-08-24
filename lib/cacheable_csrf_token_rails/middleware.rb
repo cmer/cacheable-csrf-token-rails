@@ -17,6 +17,8 @@ module CacheableCsrfTokenRails
     def replace_token_in_body(response, env)
       if response.respond_to?(:map) && token = extract_token_from_env(env)
         response.map { |b| b.gsub(placeholder, token) }
+      else
+        response
       end
     end
 
