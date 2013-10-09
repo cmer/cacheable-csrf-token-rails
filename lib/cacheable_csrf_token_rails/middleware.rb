@@ -13,11 +13,13 @@ module CacheableCsrfTokenRails
     private
 
     def replace_token(env, status, headers, body)
-      is_mappable = body.respond_to?(:map)
+      is_eachable = body.respond_to?(:each)
       token       = extract_token_from_env(env)
 
-      if is_mappable && token
-        body.map! { |b| b.gsub(placeholder, token) }
+      if is_eachable && token
+        body.each do |part|
+          part.gsub!(placeholder, token)
+        end
       elsif String(headers['Content-Type']).include?('text/html')
         logger.log(
           lib: :cacheable_csrf_token_rails,
