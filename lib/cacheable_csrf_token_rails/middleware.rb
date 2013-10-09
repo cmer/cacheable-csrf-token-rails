@@ -25,7 +25,7 @@ module CacheableCsrfTokenRails
           lib: :cacheable_csrf_token_rails,
           at: :token_not_replaced,
           request_uri: env['REQUEST_URI'],
-          response_enumerable: is_mappable,
+          response_enumerable: is_eachable,
           token: token
         )
       end
