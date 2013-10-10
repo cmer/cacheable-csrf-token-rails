@@ -14,14 +14,16 @@ module CacheableCsrfTokenRails
     end
 
     def on_placeholder_not_found(env, token, response)
-      _, headers, body = response
+      status, headers, body = response
 
       return unless String(headers['Content-Type']).include?('text/html')
+      return unless Integer(status || 100) < 300
 
       logger.log(
         lib: :cacheable_csrf_token_rails,
         at: :token_not_replaced,
         request_uri: env['REQUEST_URI'],
+        status: status,
         body_eachable?: body.respond_to?(:each),
         token: token
       )
