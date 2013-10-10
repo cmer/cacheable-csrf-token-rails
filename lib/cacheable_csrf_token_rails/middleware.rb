@@ -10,7 +10,9 @@ module CacheableCsrfTokenRails
     def call(env)
       check_for_token_in_request.execute(env)
 
-      replace_placeholder_in_response.execute(env, token_from_env(env), @app.call(env))
+      response = @app.call(env)
+
+      replace_placeholder_in_response.execute(env, token_from_env(env), response)
     end
 
     def on_placeholder_not_found(env, token, response)
