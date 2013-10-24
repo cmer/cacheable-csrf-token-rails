@@ -14,7 +14,7 @@ module CacheableCsrfTokenRails
   end
 end
 
-require 'cacheable_csrf_token_rails/listeners/logger'
+require 'cacheable_csrf_token_rails/listeners/null'
 require 'cacheable_csrf_token_rails/middleware'
 
 if defined?(Rails)
