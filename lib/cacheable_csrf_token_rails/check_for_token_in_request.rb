@@ -21,7 +21,7 @@ module CacheableCsrfTokenRails
       if ! authenticity_token || authenticity_token == placeholder
         listener.on_token_not_in_request(field, placeholder, authenticity_token, request)
       elsif authenticity_token != expected_token
-        listener.on_wrong_token_in_request(env, request, actual_token, expected_token)
+        listener.on_wrong_token_in_request(env, request, authenticity_token, expected_token)
       end
     end
 
