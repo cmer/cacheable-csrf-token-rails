@@ -10,5 +10,4 @@ Gem::Specification.new do |s|
   s.files       = ["README.md"] + Dir.glob("lib/**/*.rb")
 
   s.add_dependency('rails', '>= 3.2.5')
-  s.add_dependency('scrolls', '~> 0.3.2')
 end

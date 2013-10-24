@@ -13,8 +13,8 @@ module CacheableCsrfTokenRails
 
       placeholder_found, body = replace_placeholder(token, body)
 
-      unless placeholder_found
-        listener.on_placeholder_not_found(env, token, response)
+      if ! placeholder_found && response_should_include_token?(status, headers)
+        listener.on_placeholder_expected_and_not_found(env, token, response)
       end
 
       [status, headers, body]
@@ -33,6 +33,17 @@ module CacheableCsrfTokenRails
       end
 
       [placeholder_found, body]
+    end
+
+    def response_should_include_token?(status, headers)
+      return unless String(headers['Content-Type']).include?('text/html')
+
+      status = Integer(status || 100)
+
+      return false if status >= 404
+      return false if status < 400 && status > 299
+
+      true
     end
   end
 end

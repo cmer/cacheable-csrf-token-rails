@@ -11,7 +11,7 @@ module CacheableCsrfTokenRails
       @listener    = listener
     end
 
-    def execute(env)
+    def execute(env, expected_token)
       request = Rack::Request.new(env)
 
       return unless authenticatable_request?(request)
@@ -20,6 +20,8 @@ module CacheableCsrfTokenRails
 
       if ! authenticity_token || authenticity_token == placeholder
         listener.on_token_not_in_request(field, placeholder, authenticity_token, request)
+      elsif authenticity_token != expected_token
+        listener.on_wrong_token_in_request(env, request, actual_token, expected_token)
       end
     end
 
