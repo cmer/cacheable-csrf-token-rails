@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.authors     = ["Carl Mercier"]
   s.email       = ["carl@carlmercier.com"]
   s.homepage    = "http://github.com/cmer/cacheable-csrf-token-rails"
-  s.files       = ["README.md", "lib/cacheable-csrf-token-rails.rb"]
+  s.files       = ["README.md"] + Dir.glob("lib/**/*.rb")
 
   s.add_dependency('rails', '>= 3.2.5')
 end
