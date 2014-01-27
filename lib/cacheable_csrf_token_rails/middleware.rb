@@ -8,11 +8,11 @@ module CacheableCsrfTokenRails
     end
 
     def call(env)
-      token = ensure_session_has_csrf_token(env)
-
-      check_for_token_in_request.execute(env, token)
+      check_for_token_in_request.execute(env, csrf_token(env))
 
       response = @app.call(env)
+
+      token = ensure_session_has_csrf_token(env)
 
       replace_placeholder_in_response.execute(env, token, response)
     end
@@ -29,6 +29,10 @@ module CacheableCsrfTokenRails
 
     def replace_placeholder_in_response
       ReplacePlaceholderInResponse.new(TokenPlaceholder, listener)
+    end
+
+    def csrf_token(env)
+      (env['rack.session'] || {}).fetch(SessionField, nil)
     end
 
     def ensure_session_has_csrf_token(env)
