@@ -17,7 +17,7 @@ module CacheableCSRFTokenRails
       end
     end
 
-    ActionView::Helpers::FormTagHelper.class_eval do
+    ActionView::Helpers::UrlHelper.class_eval do
       alias_method :token_tag_rails, :token_tag
 
       def token_tag(token=nil)
