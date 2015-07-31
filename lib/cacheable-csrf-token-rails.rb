@@ -17,7 +17,9 @@ module CacheableCSRFTokenRails
       end
     end
 
-    ActionView::Helpers::FormTagHelper.class_eval do
+    token_tag_helper = (Rails::VERSION::MAJOR >= 4) ? ActionView::Helpers::UrlHelper : ActionView::Helpers::FormTagHelper
+
+    token_tag_helper.class_eval do
       alias_method :token_tag_rails, :token_tag
 
       def token_tag(token=nil)
