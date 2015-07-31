@@ -9,5 +9,5 @@ Gem::Specification.new do |s|
   s.homepage    = "http://github.com/cmer/cacheable-csrf-token-rails"
   s.files       = ["README.md", "lib/cacheable-csrf-token-rails.rb"]
 
-  s.add_dependency('rails', '>= 4.0')
+  s.add_dependency('rails', '>= 3.2.5')
 end
